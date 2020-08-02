@@ -1,4 +1,5 @@
 import os
+import sys
 from flask import Flask, request, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
@@ -127,24 +128,39 @@ def create_app(test_config=None):
         try:
             data = request.get_json()
 
-            question = data["question"]
-            answer = data["answer"]
-            difficulty = int(data["difficulty"])
-            category = int(data["category"])
+            searchTerm = data.get("searchTerm", None)
 
-            question = Question(
-                question=question,
-                answer=answer,
-                difficulty=difficulty,
-                category=category,
-            )
+            if searchTerm is not None:
+                questions = Question.query.filter(
+                    Question.question.ilike("%{}%".format(searchTerm))
+                ).all()
+                formatted_questions = [question.format()
+                                       for question in questions]
 
-            question.insert()
+                return jsonify({
+                    "questions": formatted_questions,
+                    "totalQuestions": len(questions),
+                    "currentCategory": None
+                })
+            else:
+                question = data["question"]
+                answer = data["answer"]
+                difficulty = int(data["difficulty"])
+                category = int(data["category"])
 
-            return jsonify({
-                "added": question.id,
-                "success": True
-            })
+                question = Question(
+                    question=question,
+                    answer=answer,
+                    difficulty=difficulty,
+                    category=category,
+                )
+
+                question.insert()
+
+                return jsonify({
+                    "added": question.id,
+                    "success": True
+                })
 
         except Exception:
             abort(400)
