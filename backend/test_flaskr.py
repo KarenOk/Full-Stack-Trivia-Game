@@ -48,6 +48,13 @@ class TriviaTestCase(unittest.TestCase):
         self.assertTrue(data["total_questions"])
         self.assertTrue(len(data["categories"]))
 
+    def test_get_paginated_questions_not_found(self):
+        res = self.client().get("/questions?page=1000")
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 404)
+        self.assertEqual(data["error"], 404)
+
 
 # Make the tests conveniently executable
 if __name__ == "__main__":

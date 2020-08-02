@@ -78,6 +78,9 @@ def create_app(test_config=None):
         categories = Category.query.all()
         paginated_questions = paginator(request, questions)
 
+        if not len(paginated_questions):
+            abort(404)
+
         return jsonify({
             "questions": paginated_questions,
             "total_questions": len(questions),
@@ -148,13 +151,13 @@ def create_app(test_config=None):
         return jsonify({
             "error": 404,
             "message": "The requested resource was not found."
-        })
+        }), 404
 
     @app.errorhandler(422)
     def unprocessable(error):
         return jsonify({
             "error": 422,
             "message": "Your request was unprocessable."
-        })
+        }), 404
 
     return app
