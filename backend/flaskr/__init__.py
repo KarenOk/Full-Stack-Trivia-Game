@@ -108,6 +108,33 @@ def create_app(test_config=None):
   of the questions list in the "List" tab.
   '''
 
+    @app.route("/questions", methods=["POST"])
+    def add_question():
+        try:
+            data = request.get_json()
+
+            question = data["question"]
+            answer = data["answer"]
+            difficulty = int(data["difficulty"])
+            category = int(data["category"])
+
+            question = Question(
+                question=question,
+                answer=answer,
+                difficulty=difficulty,
+                category=category,
+            )
+
+            question.insert()
+
+            return jsonify({
+                "added": question.id,
+                "success": True
+            })
+
+        except Exception:
+            abort(400)
+
     '''
   @TODO:
   Create a POST endpoint to get questions based on a search term.
@@ -159,5 +186,12 @@ def create_app(test_config=None):
             "error": 422,
             "message": "Your request was unprocessable."
         }), 404
+
+    @app.errorhandler(400)
+    def bad_request(error):
+        return jsonify({
+            "error": 400,
+            "message": "Bad request"
+        }), 400
 
     return app

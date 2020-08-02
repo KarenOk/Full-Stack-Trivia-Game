@@ -19,6 +19,13 @@ class TriviaTestCase(unittest.TestCase):
             'postgres', 'postgres', 'localhost:5432', self.database_name)
         setup_db(self.app, self.database_path)
 
+        self.new_question = {
+            "question": "Who was the first man on the moon?",
+            "category": 1,
+            "answer": "Niel Armstrong",
+            "difficulty": 1
+        }
+
         # binds the app to the current context
         with self.app.app_context():
             self.db = SQLAlchemy()
@@ -54,6 +61,22 @@ class TriviaTestCase(unittest.TestCase):
 
         self.assertEqual(res.status_code, 404)
         self.assertEqual(data["error"], 404)
+
+    def test_add_question_success(self):
+        res = self.client().post("/questions", json=self.new_question)
+        data = json.loads(res.data)
+        question = Question.query.get(data["added"])
+
+        self.assertEqual(res.status_code, 200)
+        self.assertTrue(data["success"])
+        self.assertTrue(question)
+
+    def test_add_question_bad_request(self):
+        res = self.client().post("/questions", json={})
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 400)
+        self.assertEqual(data["error"], 400)
 
 
 # Make the tests conveniently executable
