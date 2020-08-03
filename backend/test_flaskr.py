@@ -136,6 +136,33 @@ class TriviaTestCase(unittest.TestCase):
         self.assertTrue(len(data["questions"]))
         self.assertTrue(data["totalQuestions"])
 
+    def test_get_question_for_quiz_success(self):
+        res = self.client().post("/quizzes", json={
+            "previous_questions": [],
+            "quiz_category": 6
+        })
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertTrue(data["question"])
+
+    def test_get_question_for_quiz_when_no_more_questions(self):
+        res = self.client().post("/quizzes", json={
+            "previous_questions": [10, 11],
+            "quiz_category": 6
+        })
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertFalse(data["question"])
+
+    def test_get_question_for_quiz_bad_request(self):
+        res = self.client().post("/quizzes", json={})
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 400)
+        self.assertEqual(data["error"], 400)
+
 
 # Make the tests conveniently executable
 if __name__ == "__main__":
