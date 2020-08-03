@@ -2,11 +2,16 @@
   background-color: #222;
   color: white;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  height: 75px;
+  min-height: 75px;
   padding: 20px;
   padding-right: 40%;
   padding-left: 5%;
+}
+
+.App-header>* {
+  margin-right: 20px;
 }
 
 .App-header>h1 {
