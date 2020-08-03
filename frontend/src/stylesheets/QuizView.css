@@ -38,12 +38,20 @@
 
 div.button {
     margin-top: 20px;
-    margin-left: calc(50% - 50px);
+    margin-left: calc(50% - 70px);
 }
 
 .quiz-question {
     margin: 12px;
     font-size: 24px;
+}
+
+input.guess {
+    padding: 5px;
+}
+
+.submit-guess {
+    width: 120px;
 }
 
 .correct {

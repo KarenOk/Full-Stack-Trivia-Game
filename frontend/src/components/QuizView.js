@@ -172,7 +172,11 @@ class QuizView extends Component {
 					{evaluate ? "You were correct!" : "You were incorrect"}
 				</div>
 				<div className="quiz-answer">{this.state.currentQuestion.answer}</div>
-				<div className="next-question button" onClick={this.getNextQuestion}>
+				<div
+					className="next-question button pointer-cursor"
+					style={{ width: "120px" }}
+					onClick={this.getNextQuestion}
+				>
 					{" "}
 					Next Question{" "}
 				</div>
@@ -192,7 +196,12 @@ class QuizView extends Component {
 					{this.state.currentQuestion.question}
 				</div>
 				<form onSubmit={this.submitGuess}>
-					<input type="text" name="guess" onChange={this.handleChange} />
+					<input
+						type="text"
+						name="guess"
+						className="guess"
+						onChange={this.handleChange}
+					/>
 					<input
 						className="submit-guess button"
 						type="submit"
