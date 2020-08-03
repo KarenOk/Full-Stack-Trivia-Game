@@ -52,7 +52,9 @@ class QuestionView extends Component {
 			pageNumbers.push(
 				<span
 					key={i}
-					className={`page-num ${i === this.state.page ? "active" : ""}`}
+					className={`page-num pointer-cursor ${
+						i === this.state.page ? "active" : ""
+					}`}
 					onClick={() => {
 						this.selectPage(i);
 					}}
@@ -146,10 +148,17 @@ class QuestionView extends Component {
 								onClick={() => {
 									this.getByCategory(id);
 								}}
+								style={{
+									display: "flex",
+									alignItems: "center",
+									justifyContent: "center",
+									cursor: "pointer",
+								}}
 							>
 								{this.state.categories[id]}
 								<img
 									className="category"
+									style={{ paddingLeft: "15px" }}
 									src={`${this.state.categories[id].toLowerCase()}.svg`}
 								/>
 							</li>

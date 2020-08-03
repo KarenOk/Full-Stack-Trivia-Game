@@ -15,17 +15,25 @@
     font-weight: bold;
 }
 
+.play-category {
+    margin: 5px 0;
+}
+
 .play-category:hover {
     color: dodgerblue;
+    transform: scale(1.1);
 }
 
 .button {
     width: 100px;
-    margin-top: 5px;
+    padding: 10px;
+    margin-top: 7px;
     background-color: dodgerblue;
     color: white;
-    padding: 3px 5px;
     align-self: center;
+    text-align: center;
+    border: none;
+    border-radius: 2px;
 }
 
 div.button {

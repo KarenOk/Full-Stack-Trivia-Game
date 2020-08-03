@@ -9,7 +9,7 @@
   padding-left: 5%;
 }
 
-.App-header > h1 {
+.App-header>h1 {
   color: dodgerblue;
 }
 
@@ -36,4 +36,8 @@ form {
   flex-direction: column;
   width: 80%;
   margin: auto;
+}
+
+.pointer-cursor {
+  cursor: pointer;
 }

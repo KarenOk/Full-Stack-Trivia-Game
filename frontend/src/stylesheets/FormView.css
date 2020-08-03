@@ -1,7 +1,26 @@
-.form-view > label {
+.form-view {
+  max-width: 300px;
+  width: 100%;
+}
+
+.form-view>label {
   padding: 0px 0px 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-view>label>* {
+  margin-left: 20px;
+  width: 150px;
+  padding: 3px;
+  box-sizing: border-box;
 }
 
 #add-form {
-  text-align: center;
+  width: 60%;
+  min-width: 300px;
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  margin: 20px auto;
+  padding: 40px 0;
 }

@@ -8,7 +8,7 @@
   flex-shrink: 2;
 }
 
-.categories-list > form {
+.categories-list>form {
   width: 60%;
 }
 
@@ -19,7 +19,7 @@
 
 .Question-holder {
   padding: 10px 20px;
-  border: 2px black solid;
+  border: 2px #aaa solid;
   text-align: left;
   margin: 7px;
 }
@@ -39,9 +39,10 @@
 }
 
 .answer-holder {
-  font-size: 25px;
+  font-size: 18px;
   height: 25px;
   margin: 5px 0px;
+  color: green;
 }
 
 .show-answer {
@@ -53,23 +54,24 @@
   margin-left: 0px !important;
 }
 
+.pagination-menu {
+  margin: 20px 0;
+}
+
 span.page-num {
-  margin: 5px;
   padding-bottom: 50px;
-  /* color: blue; */
+  padding: 5px 10px;
   font-weight: bolder;
-  text-decoration: underline;
   font-size: 16px;
+  border-radius: 2px;
 }
 
 span.page-num.active {
-  color: blue;
+  background-color: dodgerblue;
+  color: white;
 }
 
-img.category {
-  width: 30px;
-}
-
-img.delete {
+img.category, img.delete {
   width: 20px;
+  height: 20px;
 }

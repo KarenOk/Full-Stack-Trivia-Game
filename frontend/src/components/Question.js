@@ -18,7 +18,7 @@ class Question extends Component {
 		return (
 			<div className="Question-holder">
 				<div className="Question">{question}</div>
-				<div className="Question-status">
+				<div className="Question-status" style={{ marginTop: "10px" }}>
 					<img className="category" src={`${category.toLowerCase()}.svg`} />
 					<div className="difficulty">Difficulty: {difficulty}</div>
 					<img
@@ -28,7 +28,7 @@ class Question extends Component {
 					/>
 				</div>
 				<div
-					className="show-answer button"
+					className="show-answer button pointer-cursor"
 					onClick={() => this.flipVisibility()}
 				>
 					{this.state.visibleAnswer ? "Hide" : "Show"} Answer
