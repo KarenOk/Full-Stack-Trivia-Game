@@ -49,7 +49,7 @@ def create_app(test_config=None):
     @app.route("/categories")
     def get_categories():
         '''
-          Endpoint to handle GET requests for all available categories.
+          Endpoint to get all available categories.
         '''
         categories = Category.query.all()
         formatted_categories = {
@@ -59,10 +59,27 @@ def create_app(test_config=None):
             "categories": formatted_categories
         })
 
+    @app.route("/categories", methods=["POST"])
+    def add_category():
+        '''
+          Endpoint to add a new category.
+        '''
+        try:
+            type = request.get_json()["type"]
+            category = Category(type=type)
+            category.insert()
+
+            return jsonify({
+                "added": category.id,
+                "success": True
+            })
+        except:
+            abort(400)
+
     @app.route("/questions")
     def get_questions():
         '''
-          Endpoint to handle GET requests for question including pagination.
+          Endpoint to get all questions with pagination.
         '''
         questions = Question.query.all()
         categories = Category.query.all()
@@ -100,7 +117,7 @@ def create_app(test_config=None):
     @app.route("/questions", methods=["POST"])
     def add_question():
         '''
-          Endpoint to POST a new question and to get questions based on a search term.
+          Endpoint to add a new question and to get questions based on a search term.
         '''
         try:
             data = request.get_json()

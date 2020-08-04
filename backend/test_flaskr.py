@@ -41,6 +41,21 @@ class TriviaTestCase(unittest.TestCase):
         res = self.client().get("/categories")
         self.assertEqual(res.status_code, 200)
 
+    def test_add_category_success(self):
+        res = self.client().post("/categories", json={"type": "Entertainment"})
+        data = json.loads(res.data)
+        category = Category.query.get(data["added"])
+
+        self.assertEqual(res.status_code, 200)
+        self.assertIsNotNone(category)
+
+    def test_add_category_bad_request(self):
+        res = self.client().post("/categories", json={})
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 400)
+        self.assertEqual(data["error"], 400)
+
     def test_get_paginated_questions(self):
         res = self.client().get("/questions")
         data = json.loads(res.data)

@@ -58,51 +58,97 @@ class FormView extends Component {
 		});
 	};
 
+	submitCategory = (e) => {
+		e.preventDefault();
+		$.ajax({
+			url: "/categories",
+			type: "POST",
+			dataType: "json",
+			contentType: "application/json",
+			data: JSON.stringify({
+				type: this.state.category,
+			}),
+			xhrFields: {
+				withCredentials: true,
+			},
+			crossDomain: true,
+			success: (result) => {
+				document.getElementById("add-category-form").reset();
+				return;
+			},
+			error: (error) => {
+				alert("Unable to add category. Please try your request again");
+				return;
+			},
+		});
+	};
+
 	handleChange = (event) => {
 		this.setState({ [event.target.name]: event.target.value });
 	};
 
 	render() {
 		return (
-			<div id="add-form">
-				<h2>Add a New Trivia Question</h2>
-				<form
-					className="form-view"
-					id="add-question-form"
-					onSubmit={this.submitQuestion}
-				>
-					<label>
-						Question
-						<input type="text" name="question" onChange={this.handleChange} />
-					</label>
-					<label>
-						Answer
-						<input type="text" name="answer" onChange={this.handleChange} />
-					</label>
-					<label>
-						Difficulty
-						<select name="difficulty" onChange={this.handleChange}>
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-							<option value="5">5</option>
-						</select>
-					</label>
-					<label>
-						Category
-						<select name="category" onChange={this.handleChange}>
-							{Object.keys(this.state.categories).map((id) => {
-								return (
-									<option key={id} value={id}>
-										{this.state.categories[id]}
-									</option>
-								);
-							})}
-						</select>
-					</label>
-					<input type="submit" className="button" value="Submit" />
-				</form>
+			<div>
+				<div id="add-form">
+					<h2>Add a Category</h2>
+					<form
+						className="form-view"
+						id="add-category-form"
+						onSubmit={this.submitCategory}
+					>
+						<label>
+							Type{" "}
+							<input
+								type="text"
+								name="category"
+								maxLength="20"
+								onChange={this.handleChange}
+							/>
+						</label>
+						<input type="submit" className="button" value="Submit" />
+					</form>
+				</div>
+				<div id="add-form">
+					<h2>Add a New Trivia Question</h2>
+					<form
+						className="form-view"
+						id="add-question-form"
+						onSubmit={this.submitQuestion}
+					>
+						<label>
+							Question
+							<input type="text" name="question" onChange={this.handleChange} />
+						</label>
+						<label>
+							Answer
+							<input type="text" name="answer" onChange={this.handleChange} />
+						</label>
+						<label>
+							Difficulty
+							<select name="difficulty" onChange={this.handleChange}>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+							</select>
+						</label>
+						<label>
+							Category
+							<select name="category" onChange={this.handleChange}>
+								{Object.keys(this.state.categories).map((id) => {
+									return (
+										<option key={id} value={id}>
+											{this.state.categories[id]}
+										</option>
+									);
+								})}
+							</select>
+						</label>
+						<input type="submit" className="button" value="Submit" />
+					</form>
+				</div>
 			</div>
 		);
 	}
