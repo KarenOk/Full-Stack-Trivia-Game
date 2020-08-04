@@ -39,23 +39,23 @@ Errors are returned as JSON in the following format:
 
 ### Categories
 
-#### `GET /categories`
+### `GET /categories`
 
 This fetches all the question categories as an object with each category's id as the key and type as value.
 
-##### Query Parameters
+#### Query Parameters
 
 This endpoint takes in no query parameter.
 
-##### Request Body
+#### Request Body
 
 This endpoint doesn't require a request body.
 
-##### Sample Request
+#### Sample Request
 
 `curl http://localhost:5000/categories`
 
-##### Sample Response
+#### Sample Response
 
 ```
 {
@@ -97,23 +97,23 @@ This endpoint takes in no query parameters
 }
 ```
 
-#### `GET /categories/{category_id}/questions`
+### `GET /categories/{category_id}/questions`
 
 This returns all the questions along with the total number of questions within a particular category.
 
-##### Query Parameters
+#### Query Parameters
 
 This endpoint does not take in query parameters.
 
-##### Request Body
+#### Request Body
 
 This endpoint does not require a request body.
 
-##### Sample Request
+#### Sample Request
 
 `curl http://localhost:5000/categories/`
 
-##### Sample Response
+#### Sample Response
 
 `questions`: array - All questions within the specified category. <br>
 `totalQuestions`: int - Total number of questions within specified category. <br>
@@ -142,23 +142,23 @@ This endpoint does not require a request body.
 
 ### Questions
 
-#### `GET /questions`
+### `GET /questions`
 
 This returns a paginated list of all questions within the database along, all categories and the total number of questions. Each page contains a maximum of 10 questions.
 
-##### Query Parameters
+#### Query Parameters
 
 `page`: int <small> (optional) </small> - Page number starting from 1.
 
-##### Request Body
+#### Request Body
 
 This endpoint does not require a request body
 
-##### Sample Request
+#### Sample Request
 
 `curl http://localhost:5000/questions?page=2`
 
-##### Sample Response
+#### Sample Response
 
 `questions`: array - Fetched questions. <br>
 `totalQuestions`: int - Total number of questions in the database. <br>
@@ -304,7 +304,7 @@ This endpoint requires no request body.
 
 ### Quizzes
 
-#### `POST /quizzes`
+### `POST /quizzes`
 
 This returns a random question from the database within a specified category or from a random category if none is specified. It accepts an array of previous questions to ensure that a question that has been chosen before is not chosen again. If there are no other questions to left, it returns null.
 
