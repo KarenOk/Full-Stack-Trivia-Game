@@ -38,6 +38,13 @@ class Header extends Component {
 				>
 					Play
 				</h2>
+				<h2
+					onClick={() => {
+						this.navTo("/leaderboard");
+					}}
+				>
+					Leaderboard
+				</h2>
 			</div>
 		);
 	}

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import $ from "jquery";
-
+import { Link } from "react-router-dom";
 import "../stylesheets/QuizView.css";
 
 const questionsPerPlay = 5;
@@ -17,6 +17,7 @@ class QuizView extends Component {
 			currentQuestion: {},
 			guess: "",
 			forceEnd: false,
+			player: "",
 		};
 	}
 
@@ -63,13 +64,18 @@ class QuizView extends Component {
 			},
 			crossDomain: true,
 			success: (result) => {
-				this.setState({
-					showAnswer: false,
-					previousQuestions: previousQuestions,
-					currentQuestion: result.question,
-					guess: "",
-					forceEnd: result.question ? false : true,
-				});
+				this.setState(
+					{
+						showAnswer: false,
+						previousQuestions: previousQuestions,
+						currentQuestion: result.question,
+						guess: "",
+						forceEnd: result.question ? false : true,
+					},
+					() => {
+						if (this.state.forceEnd) this.submitToLeaderboard();
+					}
+				);
 				return;
 			},
 			error: (error) => {
@@ -77,6 +83,38 @@ class QuizView extends Component {
 				return;
 			},
 		});
+	};
+
+	submitToLeaderboard = () => {
+		$.ajax({
+			url: "/leaderboard",
+			type: "POST",
+			dataType: "json",
+			contentType: "application/json",
+			data: JSON.stringify({
+				player: this.state.player,
+				score: this.state.numCorrect,
+			}),
+			crossOrigin: true,
+			xhrFields: {
+				withCredentials: true,
+			},
+			success: (result) => {
+				this.setState({ player: "" });
+				return;
+			},
+			error: (error) => {
+				alert(
+					"Something went wrong. Your score was not posted to the leaderboard."
+				);
+				return;
+			},
+		});
+	};
+
+	submitName = (event) => {
+		const value = document.getElementById("player").value;
+		this.setState({ player: value });
 	};
 
 	submitGuess = (event) => {
@@ -106,29 +144,52 @@ class QuizView extends Component {
 	renderPrePlay() {
 		return (
 			<div className="quiz-play-holder">
-				<div className="choose-header">Choose Category</div>
-				<div className="category-holder">
-					<div
-						className="play-category pointer-cursor"
-						onClick={this.selectCategory}
-					>
-						ALL
-					</div>
-					{Object.keys(this.state.categories).map((id) => {
-						return (
+				{this.state.player ? (
+					<>
+						<div className="choose-header">Choose Category</div>
+						<div className="category-holder">
 							<div
-								key={id}
-								value={id}
 								className="play-category pointer-cursor"
-								onClick={() =>
-									this.selectCategory({ type: this.state.categories[id], id })
-								}
+								onClick={this.selectCategory}
 							>
-								{this.state.categories[id]}
+								ALL
 							</div>
-						);
-					})}
-				</div>
+							{Object.keys(this.state.categories).map((id) => {
+								return (
+									<div
+										key={id}
+										value={id}
+										className="play-category pointer-cursor"
+										onClick={() =>
+											this.selectCategory({
+												type: this.state.categories[id],
+												id,
+											})
+										}
+									>
+										{this.state.categories[id]}
+									</div>
+								);
+							})}
+						</div>
+					</>
+				) : (
+					<div>
+						<label htmlFor="player"> Enter your name: </label>
+						<input
+							type="text"
+							name="player"
+							id="player"
+							style={{ padding: "8px 5px", marginRight: "5px" }}
+						/>
+						<input
+							className="button"
+							type="button"
+							value="Submit"
+							onClick={this.submitName}
+						/>
+					</div>
+				)}
 			</div>
 		);
 	}
@@ -137,8 +198,12 @@ class QuizView extends Component {
 		return (
 			<div className="quiz-play-holder">
 				<div className="final-header">
-					{" "}
 					Your Final Score is {this.state.numCorrect}
+					<p>
+						<Link to="leaderboard">
+							See where you rank in the leaderboard.{" "}
+						</Link>{" "}
+					</p>
 				</div>
 				<div className="play-again button" onClick={this.restartGame}>
 					{" "}

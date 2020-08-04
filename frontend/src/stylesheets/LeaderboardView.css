@@ -1,0 +1,17 @@
+.leaderboard-view {
+    width: 100%;
+    text-align: center;
+}
+
+.leaderboard-view table {
+    width: 80%;
+    margin: 10px auto;
+    max-width: 600px;
+}
+
+.leaderboard-view table, .leaderboard-view th, .leaderboard-view td {
+    border: 1px solid #555;
+    border-collapse: collapse;
+    text-align: left;
+    padding: 10px;
+}

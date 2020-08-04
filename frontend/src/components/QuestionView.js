@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import "../stylesheets/App.css";
 import Question from "./Question";
 import Search from "./Search";
