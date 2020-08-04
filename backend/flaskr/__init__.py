@@ -3,10 +3,11 @@ import sys
 import random
 from flask import Flask, request, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import desc
 from flask_cors import CORS
 import random
 
-from models import setup_db, Question, Category
+from models import setup_db, Question, Category, Leaderboard
 
 QUESTIONS_PER_PAGE = 10
 
@@ -201,6 +202,36 @@ def create_app(test_config=None):
         return jsonify({
             "question": question
         })
+
+    @app.route("/leaderboard")
+    def get_leaderboard_scores():
+        ''' Endpoint to get leaderboard scores '''
+
+        results = Leaderboard.query.order_by(desc(Leaderboard.score)).all()
+        paginated_results = paginator(request, results)
+        return jsonify({
+            "results": paginated_results,
+            "totalResults": len(results)
+        })
+
+    @app.route("/leaderboard", methods=["POST"])
+    def post_to_leaderboard():
+        '''
+          Endpoint to add a new category.
+        '''
+        try:
+            player = request.get_json()["player"]
+            score = int(request.get_json()["score"])
+
+            board_item = Leaderboard(player=player, score=score)
+            board_item.insert()
+
+            return jsonify({
+                "added": board_item.id,
+                "success": True
+            })
+        except:
+            abort(400)
 
     '''
       Error handlers for all expected errors

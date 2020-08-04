@@ -4,7 +4,7 @@ import json
 from flask_sqlalchemy import SQLAlchemy
 
 from flaskr import create_app
-from models import setup_db, Question, Category
+from models import setup_db, Question, Category, Leaderboard
 
 
 class TriviaTestCase(unittest.TestCase):
@@ -168,6 +168,30 @@ class TriviaTestCase(unittest.TestCase):
 
     def test_get_question_for_quiz_bad_request(self):
         res = self.client().post("/quizzes", json={})
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 400)
+        self.assertEqual(data["error"], 400)
+
+    def test_get_leaderboard_scores_success(self):
+        res = self.client().get("/leaderboard")
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+
+    def test_post_to_leaderboard_success(self):
+        res = self.client().post("/leaderboard", json={
+            "player": "Karen",
+            "score": 4
+        })
+        data = json.loads(res.data)
+        board_item = Leaderboard.query.get(data["added"])
+
+        self.assertEqual(res.status_code, 200)
+        self.assertIsNotNone(board_item)
+
+    def test_post_to_leaderboard_bad_request(self):
+        res = self.client().post("/leaderboard", json={})
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 400)
