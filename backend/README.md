@@ -343,3 +343,79 @@ This endpoint takes in no query parameters
     },
 }
 ```
+
+### Leaderboard
+
+### `GET /leaderboard`
+
+This returns a paginated list of all players and their scores in the database along. Each page contains a maximum of 10 results.
+
+#### Query Parameters
+
+`page`: int <small> (optional) </small> - Page number starting from 1.
+
+#### Request Body
+
+This endpoint does not require a request body
+
+#### Sample Request
+
+`curl http://localhost:5000/leaderboard?page=2`
+
+#### Sample Response
+
+`results`: array - Fetched results. <br>
+`totalresults`: int - Total number of results in the database. <br>
+
+```
+{
+  "results": [
+    {
+      "id": 1,
+      "player": "Karen",
+      "score": 5,
+    }, {
+      "id": 10,
+      "player": "Sandy",
+      "score": 4,
+    }
+  ],
+  "totalResults": 2
+}
+```
+
+### `POST /leaderboard`
+
+This adds a player's name and score to the database.
+
+#### Query Parameters
+
+This endpoint takes in no query parameters
+
+#### Request Body
+
+`player`: string <small> (required) </small> - Player's name. <br>
+`score`: int <small> (required) </small> - Player's score. <br>
+
+```
+{
+    "player": "Karen O",
+    "score": 4
+}
+```
+
+#### Sample Request
+
+`curl http://localhost:5000/leaderboard -X POST -H "{Content-Type: 'application/json'" -d '{ "player": "Karen O" "score": 4 }'`
+
+#### Sample Response
+
+`added`: int - Id of the added result. <br>
+`success`: boolean - Request success status. <br>
+
+```
+{
+    "added": 1,
+    "success": True
+}
+```
