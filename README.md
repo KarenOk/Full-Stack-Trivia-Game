@@ -4,6 +4,8 @@ Udacity is invested in creating bonding experiences for its employees and studen
 
 The application allows you manage questions (display, add, delete and search) and also get them by category. It also allows you to play the quiz game, randomizing either all questions or within a specific category.
 
+The backend code adheres to the PEP 8 style guide and follows common best practices.
+
 ## Getting Started
 
 This project makes use of **ReactJS** and **Node** for the frontend and **Flask**, **SQLAlchemy** and **PostgreSQL** for the backend. To be able to run this project locally, all aforementioned packages/libraries must be installed first.
