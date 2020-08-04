@@ -24,7 +24,7 @@ This project makes use of **ReactJS** and **Node** for the frontend and **Flask*
 
 - Find steps to install and [get started with postgres here.](https://www.postgresqltutorial.com/install-postgresql/)
 - With Postgres running, populate your trivia database using the trivia.psql file provided. From the backend folder in terminal run:
-  `bash psql trivia < trivia.psql`
+  `bash psql udacity_trivia < trivia.psql`
 
 #### Running the server
 
@@ -41,9 +41,9 @@ This project makes use of **ReactJS** and **Node** for the frontend and **Flask*
 To run the tests, run:
 
 ```
-    dropdb trivia_test
-    createdb trivia_test
-    psql trivia_test < trivia.psql
+    dropdb udacity_trivia_test
+    createdb udacity_trivia_test
+    psql udacity_trivia_test < trivia.psql
     python test_flaskr.py
 ```
 
