@@ -83,7 +83,7 @@ This endpoint takes in no query parameters
 
 #### Sample Request
 
-`curl http://localhost:5000/categories -X POST -H "{Content-Type: 'application/json'" -d '{"type": "Entertainment"}'`
+`curl http://localhost:5000/categories -X POST -H "{Content-Type: 'application/json'}" -d '{"type": "Entertainment"}'`
 
 #### Sample Response
 
@@ -215,7 +215,7 @@ This endpoint takes in no query parameters
 
 #### Sample Request
 
-`curl http://localhost:5000/questions -X POST -H "{Content-Type: 'application/json'" -d '{ "question": "Which country won the first ever soccer World Cup in 1930?", "answer": "Uruguay", "category": 6, "difficulty": 4 }'`
+`curl http://localhost:5000/questions -X POST -H "{Content-Type: 'application/json'}" -d '{ "question": "Which country won the first ever soccer World Cup in 1930?", "answer": "Uruguay", "category": 6, "difficulty": 4 }'`
 
 #### Sample Response
 
@@ -245,7 +245,7 @@ This endpoint takes in no query parameters
 
 #### Sample Request
 
-`curl http://localhost:5000/questions -X POST -H "{Content-Type: 'application/json'" -d '{ "searchTerm": "soccer"}'`
+`curl http://localhost:5000/questions -X POST -H "{Content-Type: 'application/json'}" -d '{ "searchTerm": "soccer"}'`
 
 #### Sample Response
 
@@ -326,7 +326,7 @@ This endpoint takes in no query parameters
 
 #### Sample Request
 
-`curl http://localhost:5000/questions -X POST -H "{Content-Type: 'application/json'" -d '{"previous_questions": [10], "quiz_category": 6 }'`
+`curl http://localhost:5000/questions -X POST -H "{Content-Type: 'application/json'}" -d '{"previous_questions": [10], "quiz_category": 6 }'`
 
 #### Sample Response
 
@@ -406,7 +406,7 @@ This endpoint takes in no query parameters
 
 #### Sample Request
 
-`curl http://localhost:5000/leaderboard -X POST -H "{Content-Type: 'application/json'" -d '{ "player": "Karen O" "score": 4 }'`
+`curl http://localhost:5000/leaderboard -X POST -H "{Content-Type: 'application/json'}" -d '{ "player": "Karen O" "score": 4 }'`
 
 #### Sample Response
 
