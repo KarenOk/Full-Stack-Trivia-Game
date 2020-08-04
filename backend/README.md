@@ -65,6 +65,38 @@ This endpoint doesn't require a request body.
 }
 ```
 
+### `POST /categories`
+
+This adds a category to the collection of categories in the database. It takes in category type.
+
+#### Query Parameters
+
+This endpoint takes in no query parameters
+
+#### Request Body
+
+`type`: string <small> (required) </small> - Category type <br>
+
+```
+{"type": "Entertainment"}
+```
+
+#### Sample Request
+
+`curl http://localhost:5000/categories -X POST -H "{Content-Type: 'application/json'" -d '{"type": "Entertainment"}'`
+
+#### Sample Response
+
+`added`: int - Id of the added category. <br>
+`success`: boolean - Request success status. <br>
+
+```
+{
+    "added": 1,
+    "success": True
+}
+```
+
 #### `GET /categories/{category_id}/questions`
 
 This returns all the questions along with the total number of questions within a particular category.
